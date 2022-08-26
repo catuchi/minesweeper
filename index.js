@@ -2,6 +2,7 @@ const grid = document.querySelector(".grid");
 let width = 10;
 let bombAmount = 20;
 let squares = [];
+let isGameOver = false;
 
 // create Board
 function createBoard() {
@@ -91,6 +92,10 @@ createBoard();
 
 // click on square actions
 function click(square) {
+  let currentId = square.id;
+  if (isGameOver) return;
+  if (square.classList.contains("checked") || square.classList.contains("flag"))
+    return;
   if (square.classList.contains("bomb")) {
     console.log("Game over");
   } else {
@@ -100,5 +105,10 @@ function click(square) {
       square.innerHTML = total;
       return;
     }
+    checkSquare(square, currentId);
   }
+  square.classList.add("checked");
 }
+
+// check neighbouring squares once square is clicked
+// function check
